@@ -1,0 +1,62 @@
+name: Deploy Portfolio
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node for IPL
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      
+      - name: Cache IPL npm dependencies
+        uses: actions/cache@v4
+        with:
+          path: ./IPL/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('IPL/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      
+      - run: npm ci
+        working-directory: ./IPL
+      
+      - run: npm run build
+        working-directory: ./IPL
+      
+      - name: Create combined artifact
+        run: |
+          mkdir -p artifact/IPL
+          cp -r IPL/dist/* artifact/IPL/
+          cp index.html artifact/
+          cp styles.css script.js artifact/
+          cp favicon.svg artifact/ 2>/dev/null || true
+      
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: ./artifact
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
