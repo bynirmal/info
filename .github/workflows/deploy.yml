@@ -20,12 +20,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
-      - name: Setup Node for IPL
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
       
-      - name: Cache IPL npm dependencies
+      - name: Cache IPL dependencies
         uses: actions/cache@v4
         with:
           path: ./IPL/node_modules
@@ -38,13 +38,19 @@ jobs:
       
       - run: npm run build
         working-directory: ./IPL
+
+      - name: Setup spiderverse-mcu
+        run: |
+          cd spiderverse-mcu
+          npm ci
+          npm run build
       
       - name: Create combined artifact
         run: |
           mkdir -p artifact/IPL
           cp -r IPL/dist/* artifact/IPL/
           mkdir -p artifact/spiderverse-mcu
-          cp -r spiderverse-mcu/* artifact/spiderverse-mcu/
+          cp -r spiderverse-mcu/out/* artifact/spiderverse-mcu/
           cp index.html artifact/
           cp styles.css script.js artifact/
           cp favicon.svg artifact/ 2>/dev/null || true
