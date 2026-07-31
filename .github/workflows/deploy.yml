@@ -43,6 +43,8 @@ jobs:
         run: |
           mkdir -p artifact/IPL
           cp -r IPL/dist/* artifact/IPL/
+          mkdir -p artifact/spiderverse-mcu
+          cp -r spiderverse-mcu/* artifact/spiderverse-mcu/
           cp index.html artifact/
           cp styles.css script.js artifact/
           cp favicon.svg artifact/ 2>/dev/null || true
