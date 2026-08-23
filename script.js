@@ -5,9 +5,17 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
 // --- Loader ---
 window.addEventListener('load', () => {
   setTimeout(() => {
-    document.querySelector('.loader')?.classList.add('hidden');
+    const softLaunchLoader = document.querySelector('.soft-launch-loader');
+    const oldLoader = document.querySelector('.loader');
+    
+    if (softLaunchLoader) {
+      softLaunchLoader.classList.add('hidden');
+    }
+    if (oldLoader) {
+      oldLoader.classList.add('hidden');
+    }
     document.body.classList.add('loaded');
-  }, 2000);
+  }, 1800);
 });
 
 // --- Lenis smooth scroll ---
@@ -143,16 +151,24 @@ if (canvas && !prefersReducedMotion) {
 
 // --- Cursor glow ---
 const cursorGlow = document.querySelector('.cursor-glow');
-if (cursorGlow && window.matchMedia('(min-width: 769px)').matches) {
+if (cursorGlow && window.matchMedia('(min-width: 769px)').matches && !prefersReducedMotion) {
   let glowX = 0, glowY = 0, targetX = 0, targetY = 0;
+  let isHovering = false;
+  
   document.addEventListener('mousemove', (e) => {
     targetX = e.clientX;
     targetY = e.clientY;
   });
 
+  document.querySelectorAll('a, button, .btn, .project-card, .skill-card, .skill-group, .contact-btn, .magnetic').forEach(el => {
+    el.addEventListener('mouseenter', () => { isHovering = true; });
+    el.addEventListener('mouseleave', () => { isHovering = false; });
+  });
+
   function animateGlow() {
-    glowX += (targetX - glowX) * 0.08;
-    glowY += (targetY - glowY) * 0.08;
+    const speed = isHovering ? 0.15 : 0.06;
+    glowX += (targetX - glowX) * speed;
+    glowY += (targetY - glowY) * speed;
     cursorGlow.style.left = glowX + 'px';
     cursorGlow.style.top = glowY + 'px';
     requestAnimationFrame(animateGlow);
