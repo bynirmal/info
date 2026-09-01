@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 const SOCIAL_LINKS = [
   { label: "GitHub", href: "https://github.com/bynirmal" },
-  { label: "LinkedIn", href: "https://linkedin.com/in/nirmal-kumar" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/nirmal-kumar-a43a56392/" },
   { label: "Email", href: "mailto:nirmal@example.com" },
 ];
 

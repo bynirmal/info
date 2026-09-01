@@ -12,7 +12,7 @@ const LINKS = [
   },
   {
     label: "LINKEDIN",
-    href: "https://linkedin.com/in/nirmal-kumar",
+    href: "https://www.linkedin.com/in/nirmal-kumar-a43a56392/",
   },
 ];
 
