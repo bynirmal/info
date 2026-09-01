@@ -20,7 +20,7 @@ const PROJECTS = [
     description:
       "An educational interactive concept designed to make learning engaging and fun for children. Focused on creative education through interactive digital experiences.",
     tags: ["Web Design", "Education", "Interactive UI"],
-    link: "#",
+    link: "https://bynirmal.github.io/bala-aksharam/",
     github: "#",
   },
   {
