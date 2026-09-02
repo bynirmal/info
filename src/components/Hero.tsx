@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useMemo } from "react";
 import { ArrowUpRight } from "lucide-react";
 
 export default function Hero() {
@@ -13,6 +13,15 @@ export default function Hero() {
   const y = useTransform(scrollYProgress, [0, 1], [0, 150]);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
   const photoY = useTransform(scrollYProgress, [0, 1], [0, -80]);
+
+  // Seeded random for consistent server/client rendering
+  const fragments = useMemo(() => 
+    Array.from({ length: 6 }).map((_, i) => ({
+      right: `${((i * 47 + 19) * 11) % 100}%`,
+      top: `${((i * 33 + 13) * 7) % 100}%`,
+      duration: 2 + ((i * 29 + 5) % 20) / 10,
+      delay: ((i * 23 + 11) % 30) / 10,
+    })), []);
 
   return (
     <section
@@ -163,7 +172,7 @@ export default function Hero() {
               </motion.div>
 
               {/* Digital fragments */}
-              {Array.from({ length: 6 }).map((_, i) => (
+              {fragments.map((f, i) => (
                 <motion.div
                   key={i}
                   className="absolute w-1 h-1 bg-[#c8ff00]/40 rounded-full"
@@ -172,13 +181,13 @@ export default function Hero() {
                     opacity: [0, 0.6, 0],
                   }}
                   transition={{
-                    duration: 2 + Math.random() * 2,
-                    delay: Math.random() * 3,
+                    duration: f.duration,
+                    delay: f.delay,
                     repeat: Infinity,
                   }}
                   style={{
-                    right: `${Math.random() * 100}%`,
-                    top: `${Math.random() * 100}%`,
+                    right: f.right,
+                    top: f.top,
                   }}
                 />
               ))}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const NAME_STAGES = [
@@ -25,6 +25,17 @@ export default function IntroAnimation({
   const [stage, setStage] = useState<"black" | "line" | "name" | "subtitle" | "exit">("black");
   const [nameIndex, setNameIndex] = useState(0);
   const [showFinalName, setShowFinalName] = useState(false);
+
+  // Seeded random for consistent server/client rendering
+  const particles = useMemo(() => 
+    Array.from({ length: 20 }).map((_, i) => ({
+      left: `${((i * 37 + 13) * 7) % 100}%`,
+      top: `${40 + ((i * 23 + 7) * 3) % 20}%`,
+      yEnd: -80 - ((i * 41 + 11) % 120),
+      xEnd: ((i * 31 + 5) % 60) - 30,
+      duration: 2 + ((i * 19 + 3) % 20) / 10,
+      delay: ((i * 17 + 9) % 20) / 10,
+    })), []);
 
   const runIntro = useCallback(async () => {
     // Scene 1: Black screen
@@ -96,24 +107,24 @@ export default function IntroAnimation({
 
       {/* Floating particles */}
       {(stage === "black" || stage === "line") &&
-        Array.from({ length: 20 }).map((_, i) => (
+        particles.map((p, i) => (
           <motion.div
             key={i}
             className="absolute w-[1px] h-[1px] bg-[#c8ff00] rounded-full"
             initial={{ opacity: 0 }}
             animate={{
               opacity: [0, 0.6, 0],
-              y: [0, -80 - Math.random() * 120],
-              x: [0, (Math.random() - 0.5) * 60],
+              y: [0, p.yEnd],
+              x: [0, p.xEnd],
             }}
             transition={{
-              duration: 2 + Math.random() * 2,
-              delay: Math.random() * 2,
+              duration: p.duration,
+              delay: p.delay,
               repeat: Infinity,
             }}
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${40 + Math.random() * 20}%`,
+              left: p.left,
+              top: p.top,
             }}
           />
         ))}
