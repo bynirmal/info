@@ -90,13 +90,7 @@ export default function IntroAnimation({
       exit={{ opacity: 0 }}
       transition={{ duration: 0.8 }}
     >
-      {/* Skip button */}
-      <button
-        onClick={handleSkip}
-        className="absolute bottom-8 right-8 z-[110] text-xs tracking-[0.3em] uppercase text-[#555] hover:text-[#c8ff00] transition-colors duration-300"
-      >
-        Skip ↵
-      </button>
+
 
       {/* Film grain */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none"
