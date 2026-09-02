@@ -43,7 +43,7 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} antialiased`}
     >
-      <body className="grain min-h-screen bg-[#0a0a0a] text-[#ededed]">
+      <body className="grain min-h-screen bg-[#0a0a0a] text-[#ededed]" style={{ backgroundColor: "#0a0a0a", color: "#ededed" }}>
         {children}
       </body>
     </html>
