@@ -1,0 +1,30 @@
+# Ignore
+.dart_tool/
+.packages
+.pub-cache/
+pubspec.lock
+.flutter-plugins
+.flutter-plugins-dependencies
+build/
+.metadata
+
+# Android / iOS
+android/
+ios/
+# web/  ← intentionally tracked for GitHub Pages deployment
+windows/
+linux/
+macos/
+
+# IDE
+.vscode/
+.idea/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env
+.env
+.env.*

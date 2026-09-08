@@ -1,0 +1,15 @@
+const List<String> dailyQuotes = [
+  "Be brave like Hanuman and stand up for what is good and true.",
+  "Kindness is the light that brightens every heart — like Sita spreading warmth wherever she went.",
+  "Learn something new every day like young Krishna, who asked the wisest questions.",
+  "Do your duty with love, as Arjuna learned from Lord Krishna in the Bhagavad Gita.",
+  "A pure heart and honest words are more powerful than any magic.",
+  "Be grateful for everything you have, just as Sita was grateful to the forest and nature.",
+  "Listen to your parents — they are your first teachers.",
+  "Dream big with divine faith, just as little Krishna dreamed of uplifting all beings.",
+  "Do good without expecting anything in return — karma always returns.",
+  "Be as loving as Mother Parvathi, who always protects her children on their journey.",
+  "Always speak the truth — that is the greatest strength any warrior can have.",
+  "Share your food, toys, and love with others — giving more brings joy.",
+  "Respect everyone, from the ant to the elephant, and from a child to a king.",
+];

@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Bala Aksharam — Little Rishis</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌺</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Great+Vibes&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- ======== SPLASH ======== -->
+    <div id="splash-screen" class="screen active">
+      <div class="splash-inner fade-in">
+        <div class="splash-logo">
+          <span class="lotus-icon">🌺</span>
+          <h1 class="app-name">Bala Aksharam</h1>
+          <p class="app-tagline">Little Rishis</p>
+        </div>
+        <p class="sanskrit-line">जय श्री राम</p>
+        <div class="splash-loader">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======== HOME ======== -->
+    <div id="home-screen" class="screen">
+      <header class="top-bar">
+        <div class="app-brand">
+          <span>🌺</span>
+          <span class="brand-name">Little Rishis</span>
+        </div>
+        <button class="icon-btn" onclick="navigate('settings')">⚙️</button>
+      </header>
+
+      <main class="page-content">
+        <!-- Greeting Card -->
+        <div class="greeting-card gradient-saffron-pink">
+          <div class="greeting-left">
+            <div class="avatar-circle">🙏</div>
+            <div>
+              <p class="greeting-title">Welcome, Rishi!</p>
+              <p class="greeting-sub">Ready to learn today?</p>
+            </div>
+          </div>
+          <div class="greeting-stars">
+            <span class="star-badge">⭐ 340</span>
+          </div>
+        </div>
+
+        <!-- A-Z Section -->
+        <section class="section">
+          <h2 class="section-title">Learn Alphabets — A to Z</h2>
+          <div id="alphabet-grid" class="az-grid"></div>
+        </section>
+
+        <!-- Activities -->
+        <section class="section">
+          <h2 class="section-title">Games & Activities</h2>
+          <div class="activity-grid">
+            <button class="activity-card gradient-krishna" onclick="navigate('alphabet')">
+              <span class="act-icon">🔤</span>
+              <span class="act-label">A–Z</span>
+            </button>
+            <button class="activity-card gradient-peacock" onclick="navigate('quiz')">
+              <span class="act-icon">🧠</span>
+              <span class="act-label">Quiz</span>
+            </button>
+            <button class="activity-card gradient-gold" onclick="navigate('stories')">
+              <span class="act-icon">📖</span>
+              <span class="act-label">Stories</span>
+            </button>
+            <button class="activity-card gradient-lotus" onclick="navigate('puzzle')">
+              <span class="act-icon">🧩</span>
+              <span class="act-label">Puzzle</span>
+            </button>
+            <button class="activity-card gradient-saffron" onclick="navigate('memory')">
+              <span class="act-icon">🃏</span>
+              <span class="act-label">Match</span>
+            </button>
+            <button class="activity-card gradient-sandalwood" onclick="navigate('rewards')">
+              <span class="act-icon">🏆</span>
+              <span class="act-label">Rewards</span>
+            </button>
+            <button class="activity-card gradient-saffron-light" onclick="navigate('parent')">
+              <span class="act-icon">👨‍👩‍👧</span>
+              <span class="act-label">Parent</span>
+            </button>
+            <button class="activity-card gradient-gold-light" onclick="navigate('dailyquote')">
+              <span class="act-icon">💡</span>
+              <span class="act-label">Dharma</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- Story Row -->
+        <section class="section">
+          <h2 class="section-title">Ramayana Stories</h2>
+          <div id="story-row" class="story-scroll"></div>
+        </section>
+
+        <!-- Daily Quote -->
+        <section class="section">
+          <div class="quote-card" onclick="navigate('dailyquote')">
+            <div class="quote-icon">💡</div>
+            <div>
+              <p class="quote-label">Daily Dharma</p>
+              <p class="quote-text" id="home-quote"></p>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- Bottom Nav -->
+      <nav class="bottom-nav">
+        <button class="nav-btn active" onclick="navigate('home')">
+          <span class="nav-icon">🏠</span><span class="nav-label">Home</span>
+        </button>
+        <button class="nav-btn" onclick="navigate('alphabet')">
+          <span class="nav-icon">🔤</span><span class="nav-label">A–Z</span>
+        </button>
+        <button class="nav-btn" onclick="navigate('games')">
+          <span class="nav-icon">🎮</span><span class="nav-label">Games</span>
+        </button>
+        <button class="nav-btn" onclick="navigate('rewards')">
+          <span class="nav-icon">🏆</span><span class="nav-label">Rewards</span>
+        </button>
+        <button class="nav-btn" onclick="navigate('parent')">
+          <span class="nav-icon">👨‍👩‍👧</span><span class="nav-label">Parent</span>
+        </button>
+      </nav>
+    </div>
+
+    <!-- ======== A-Z GRID ======== -->
+    <div id="alphabet-screen" class="screen">
+      <header class="top-bar">
+        <button class="icon-btn back-btn" onclick="navigate('home')">←</button>
+        <h1 class="screen-title">A – Z Alphabet</h1>
+        <div style="width:32px"></div>
+      </header>
+      <main class="page-content">
+        <div id="az-detail-grid" class="az-detail-grid"></div>
+      </main>
+    </div>
+
+    <!-- ======== ALPHABET DETAIL ======== -->
+    <div id="alphabet-detail-screen" class="screen">
+      <header class="top-bar gradient-saffron-pink">
+        <button class="icon-btn back-btn white-icon" onclick="goBack()">←</button>
+        <h1 class="screen-title white-text" id="detail-letter-title">A — Ayodhya</h1>
+        <div style="width:32px"></div>
+      </header>
+      <main class="page-content detail-content">
+        <div class="big-letter-circle" id="detail-big-letter">A</div>
+        <div class="detail-card">
+          <h2 class="detail-word" id="detail-word">Ayodhya</h2>
+          <p class="detail-telugu" id="detail-telugu">అయోధ్య</p>
+          <p class="detail-desc" id="detail-desc"></p>
+        </div>
+        <button class="audio-btn" id="audio-btn" onclick="playTTS()">
+          <span id="audio-icon">🔊</span>
+          <span id="audio-label">Tap to Hear</span>
+        </button>
+        <button class="learn-btn" id="learn-btn" onclick="markLearned()">
+          Mark as Learned ✅
+        </button>
+        <p class="detail-category" id="detail-category"></p>
+      </main>
+    </div>
+
+    <!-- ======== PUZZLE ======== -->
+    <div id="puzzle-screen" class="screen">
+      <header class="top-bar gradient-krishna">
+        <button class="icon-btn back-btn white-icon" onclick="goBack()">←</button>
+        <h1 class="screen-title white-text">Puzzle Time</h1>
+        <button class="icon-btn white-icon" onclick="resetPuzzle()">🔄</button>
+      </header>
+      <main class="page-content center-content">
+        <div class="moves-bar">
+          <span>Moves: <strong id="puzzle-moves">0</strong></span>
+          <span id="puzzle-status">Arrange A → H</span>
+        </div>
+        <div id="puzzle-grid" class="puzzle-grid"></div>
+        <button class="btn-primary" id="puzzle-play-again" style="display:none" onclick="resetPuzzle()">Play Again ↺</button>
+      </main>
+    </div>
+
+    <!-- ======== QUIZ ======== -->
+    <div id="quiz-screen" class="screen">
+      <header class="top-bar gradient-peacock">
+        <button class="icon-btn back-btn white-icon" onclick="goBack()">←</button>
+        <h1 class="screen-title white-text">Quiz Time 🧠</h1>
+        <div style="width:32px"></div>
+      </header>
+      <main class="page-content" id="quiz-content">
+        <!-- Rendered by JS -->
+      </main>
+    </div>
+
+    <!-- ======== STORIES ======== -->
+    <div id="stories-screen" class="screen">
+      <header class="top-bar gradient-gold">
+        <button class="icon-btn back-btn white-icon" onclick="goBack()">←</button>
+        <h1 class="screen-title white-text">Ramayana Stories</h1>
+        <div style="width:32px"></div>
+      </header>
+      <main class="page-content" id="stories-list"></main>
+    </div>
+
+    <!-- ======== STORY DETAIL ======== -->
+    <div id="story-detail-screen" class="screen">
+      <header class="top-bar gradient-gold pinned">
+        <button class="icon-btn back-btn white-icon" onclick="goBack()">←</button>
+        <h1 class="screen-title white-text" id="story-title"></h1>
+        <div style="width:32px"></div>
+      </header>
+      <main class="page-content">
+        <div class="story-meta-card">
+          <div class="story-meta-left">
+            <div class="story-icon-box">📖</div>
+            <div>
+              <p class="story-telugu-title" id="story-telugu-title"></p>
+              <p class="story-info" id="story-info"></p>
+            </div>
+          </div>
+          <div class="story-reward-badge">+15⭐</div>
+        </div>
+        <p class="story-body" id="story-body"></p>
+        <button class="btn-primary" onclick="goBack()">← Back to Stories</button>
+      </main>
+    </div>
+
+    <!-- ======== MEMORY MATCH ======== -->
+    <div id="memory-screen" class="screen">
+      <header class="top-bar gradient-krishna">
+        <button class="icon-btn back-btn white-icon" onclick="goBack()">←</button>
+        <h1 class="screen-title white-text">Memory Match</h1>
+        <button class="icon-btn white-icon" onclick="resetMemory()">🔄</button>
+      </header>
+      <main class="page-content center-content">
+        <div class="moves-bar">
+          <span>Moves: <strong id="memory-moves">0</strong></span>
+          <span>Matched: <strong id="memory-matched">0</strong>/8</span>
+        </div>
+        <div id="memory-grid" class="memory-grid"></div>
+      </main>
+    </div>
+
+    <!-- ======== REWARDS ======== -->
+    <div id="rewards-screen" class="screen">
+      <header class="top-bar gradient-saffron">
+        <button class="icon-btn back-btn white-icon" onclick="goBack()">←</button>
+        <h1 class="screen-title white-text">Rewards 🏆</h1>
+        <div class="star-pill">⭐ 340</div>
+      </header>
+      <main class="page-content">
+        <div class="rewards-hero gradient-saffron-pink">
+          <div class="rishi-avatar">🙏</div>
+          <div>
+            <p class="rishi-name">Rishi</p>
+            <p class="rishi-sub">Learning · Growing · Symbolizing</p>
+          </div>
+          <div class="level-badge">Lv.5</div>
+        </div>
+        <div class="level-card">
+          <div class="level-row">
+            <span>Level 5 · Little Scholar</span>
+            <span class="gold-text">340 / 500 ⭐</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill gold" style="width:68%"></div></div>
+          <p class="progress-hint">160 ⭐ to Level 6</p>
+          <div class="stats-row">
+            <div class="stat-item"><strong>26</strong><span>Letters</span></div>
+            <div class="stat-item"><strong>12</strong><span>Stories</span></div>
+            <div class="stat-item"><strong>8</strong><span>Badges</span></div>
+            <div class="stat-item"><strong>7</strong><span>Days 🔥</span></div>
+          </div>
+        </div>
+        <h2 class="section-title">Badges & Achievements</h2>
+        <div id="badges-grid" class="badges-grid"></div>
+      </main>
+    </div>
+
+    <!-- ======== PARENT DASHBOARD ======== -->
+    <div id="parent-screen" class="screen">
+      <header class="top-bar gradient-sandalwood">
+        <button class="icon-btn back-btn white-icon" onclick="goBack()">←</button>
+        <h1 class="screen-title white-text">Parent Dashboard</h1>
+        <div style="width:32px"></div>
+      </header>
+      <main class="page-content">
+        <div class="child-card gradient-sandalwood-saffron">
+          <div class="child-avatar">👶</div>
+          <div>
+            <p class="child-name">Little Rishi</p>
+            <p class="child-sub">Level 5 · 340 Stars · 7 Day Streak 🔥</p>
+          </div>
+        </div>
+        <div class="progress-cards">
+          <div class="progress-circle-wrap">
+            <svg viewBox="0 0 36 36" class="progress-ring"><circle cx="18" cy="18" r="15.92" stroke="rgba(249,115,22,0.18)" stroke-width="3" fill="none"/><circle cx="18" cy="18" r="15.92" stroke="#F97316" stroke-width="3" fill="none" stroke-dasharray="69.2 100" stroke-linecap="round"/></svg>
+            <div class="progress-label">A–Z<br><span class="progress-val">18/26</span></div>
+          </div>
+          <div class="progress-circle-wrap">
+            <svg viewBox="0 0 36 36" class="progress-ring"><circle cx="18" cy="18" r="15.92" stroke="rgba(236,72,153,0.18)" stroke-width="3" fill="none"/><circle cx="18" cy="18" r="15.92" stroke="#EC4899" stroke-width="3" fill="none" stroke-dasharray="66.7 100" stroke-linecap="round"/></svg>
+            <div class="progress-label">Stories<br><span class="progress-val">12/18</span></div>
+          </div>
+          <div class="progress-circle-wrap">
+            <svg viewBox="0 0 36 36" class="progress-ring"><circle cx="18" cy="18" r="15.92" stroke="rgba(5,150,105,0.18)" stroke-width="3" fill="none"/><circle cx="18" cy="18" r="15.92" stroke="#059669" stroke-width="3" fill="none" stroke-dasharray="53.8 100" stroke-linecap="round"/></svg>
+            <div class="progress-label">Words<br><span class="progress-val">14</span></div>
+          </div>
+        </div>
+        <div class="chart-card">
+          <h3>Weekly Performance</h3>
+          <div class="bar-chart">
+            <div class="bar-col"><div class="bar" style="height:30%"></div><span>M</span></div>
+            <div class="bar-col"><div class="bar" style="height:50%"></div><span>T</span></div>
+            <div class="bar-col"><div class="bar" style="height:40%"></div><span>W</span></div>
+            <div class="bar-col"><div class="bar" style="height:70%"></div><span>T</span></div>
+            <div class="bar-col"><div class="bar" style="height:60%"></div><span>F</span></div>
+            <div class="bar-col"><div class="bar" style="height:80%"></div><span>S</span></div>
+            <div class="bar-col"><div class="bar" style="height:50%"></div><span>S</span></div>
+          </div>
+        </div>
+        <div class="parent-controls-card">
+          <h3>Parent Controls</h3>
+          <label class="switch-row"><span>Sound Effects</span><input type="checkbox" checked></label>
+          <label class="switch-row"><span>Devotional Music</span><input type="checkbox" checked></label>
+          <p class="control-label">Daily Time Limit</p>
+          <input type="range" min="15" max="180" value="60" class="slider" oninput="this.nextElementSibling.textContent=this.value+' min/day'">
+          <p class="control-value">60 min/day</p>
+        </div>
+      </main>
+    </div>
+
+    <!-- ======== GAMES HUB ======== -->
+    <div id="games-screen" class="screen">
+      <header class="top-bar gradient-green">
+        <button class="icon-btn back-btn white-icon" onclick="goBack()">←</button>
+        <h1 class="screen-title white-text">Games</h1>
+        <div style="width:32px"></div>
+      </header>
+      <main class="page-content">
+        <div class="featured-banner gradient-krishna-blue">
+          <div class="featured-icon">🎮</div>
+          <div>
+            <p class="featured-label">Featured Game</p>
+            <p class="featured-title">Memory Match</p>
+            <p class="featured-sub">Match 8 mythology pairs</p>
+          </div>
+        </div>
+        <div class="games-list">
+          <button class="game-item" onclick="navigate('memory')">
+            <div class="game-icon-box gradient-krishna-kid">🃏</div>
+            <div class="game-info"><p class="game-name">Memory Match</p><p class="game-desc">Flip & match mythology cards</p></div>
+            <span class="game-arrow">▶</span>
+          </button>
+          <button class="game-item" onclick="navigate('puzzle')">
+            <div class="game-icon-box gradient-peacock-kid">🧩</div>
+            <div class="game-info"><p class="game-name">Puzzle Assembly</p><p class="game-desc">Arrange A → H in order</p></div>
+            <span class="game-arrow">▶</span>
+          </button>
+          <button class="game-item" onclick="navigate('quiz')">
+            <div class="game-icon-box gradient-saffron-kid">🧠</div>
+            <div class="game-info"><p class="game-name">Mythology Quiz</p><p class="game-desc">Test your knowledge</p></div>
+            <span class="game-arrow">▶</span>
+          </button>
+          <div class="game-item game-disabled">
+            <div class="game-icon-box muted">✏️</div>
+            <div class="game-info"><p class="game-name">Letter Tracing</p><p class="game-desc">Coming Soon</p></div>
+            <span class="soon-badge">Soon</span>
+          </div>
+          <div class="game-item game-disabled">
+            <div class="game-icon-box muted">🔊</div>
+            <div class="game-info"><p class="game-name">Sound Matching</p><p class="game-desc">Coming Soon</p></div>
+            <span class="soon-badge">Soon</span>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- ======== SETTINGS ======== -->
+    <div id="settings-screen" class="screen">
+      <header class="top-bar gradient-krishna">
+        <button class="icon-btn back-btn white-icon" onclick="goBack()">←</button>
+        <h1 class="screen-title white-text">Settings</h1>
+        <div style="width:32px"></div>
+      </header>
+      <main class="page-content">
+        <p class="section-subtitle">Language & Speech</p>
+        <button class="settings-item" onclick="navigate('language')">
+          <span>🏳️</span><span>App Language</span><span class="setting-val">English</span><span>›</span>
+        </button>
+        <button class="settings-item">
+          <span>🔊</span><span>TTS Voice</span><span class="setting-val">Warm & Clear</span><span>›</span>
+        </button>
+        <p class="section-subtitle">Audio & Notifications</p>
+        <label class="settings-item">
+          <span>🎵</span><span>Devotional Music</span>
+          <input type="checkbox" checked class="toggle-end">
+        </label>
+        <label class="settings-item">
+          <span>🔔</span><span>Daily Reminder</span>
+          <input type="checkbox" checked class="toggle-end">
+        </label>
+        <label class="settings-item">
+          <span>🔊</span><span>Sound Effects</span>
+          <input type="checkbox" checked class="toggle-end">
+        </label>
+        <p class="section-subtitle">Appearance</p>
+        <label class="settings-item">
+          <span>🌙</span><span>Night Mode</span>
+          <input type="checkbox" class="toggle-end">
+        </label>
+        <p class="section-subtitle">Account</p>
+        <button class="settings-item" onclick="alert('Shared successfully!')"><span>📤</span><span>Share the App</span><span>›</span></button>
+        <button class="settings-item" onclick="alert('Thank you!')"><span>❤️</span><span>Rate Us</span><span>›</span></button>
+        <button class="settings-item"><span>❓</span><span>Help & Feedback</span><span>›</span></button>
+        <p class="app-version">v1.0.0 · Made in India 🌸</p>
+      </main>
+    </div>
+
+    <!-- ======== LANGUAGE ======== -->
+    <div id="language-screen" class="screen">
+      <header class="top-bar gradient-teal">
+        <button class="icon-btn back-btn white-icon" onclick="goBack()">←</button>
+        <h1 class="screen-title white-text">Language</h1>
+        <div style="width:32px"></div>
+      </header>
+      <main class="page-content">
+        <p class="section-subtitle center">Spirit – Choose your favorite language!</p>
+        <div id="language-list"></div>
+        <button class="btn-primary full-width" onclick="goBack()">Apply Language ✓</button>
+      </main>
+    </div>
+
+    <!-- ======== DAILY QUOTE ======== -->
+    <div id="dailyquote-screen" class="screen">
+      <header class="top-bar gradient-quote">
+        <button class="icon-btn back-btn" onclick="goBack()">←</button>
+        <h1 class="screen-title white-text">Daily Dharma ☀</h1>
+        <button class="icon-btn white-icon" onclick="cycleQuote()">🔄</button>
+      </header>
+      <main class="page-content quote-page">
+        <div class="quote-large-card" id="quote-large-card">
+          <p class="quote-large-icon">🪷</p>
+          <p class="quote-large-text" id="quote-large-text"></p>
+          <div class="gold-divider"></div>
+          <p class="quote-large-author">🌺 Little Rishis</p>
+        </div>
+        <div class="quote-dots" id="quote-dots"></div>
+      </main>
+    </div>
+  </div>
+
+  <!-- ======== CONFETTI CANVAS ======== -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <script src="app.js"></script>
+</body>
+</html>
