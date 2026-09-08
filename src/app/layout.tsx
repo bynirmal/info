@@ -1,36 +1,40 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Space_Grotesk, Geist } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const geist = Geist({
+  variable: "--font-geist",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "Nirmal Kumar | Developer Portfolio",
+  title: "Nirmal Kumar — Developer",
   description:
-    "Nirmal Kumar — B.Tech CSE Student, Developer & Creative Technologist. Building modern, interactive and meaningful digital experiences.",
+    "Nirmal Kumar — B.Tech student, web developer, and Android learner building real software.",
   keywords: [
     "Nirmal Kumar",
     "portfolio",
     "developer",
     "web development",
-    "Next.js",
-    "React",
     "Android",
   ],
   openGraph: {
-    title: "Nirmal Kumar | Developer Portfolio",
-    description:
-      "B.Tech CSE Student, Developer & Creative Technologist",
+    title: "Nirmal Kumar — Developer",
+    description: "B.Tech student, web developer, and Android learner",
     type: "website",
   },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#FAF7F2",
 };
 
 export default function RootLayout({
@@ -41,11 +45,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      className={`${spaceGrotesk.variable} ${geist.variable}`}
     >
-      <body className="grain min-h-screen bg-[#0a0a0a] text-[#ededed]" style={{ backgroundColor: "#0a0a0a", color: "#ededed" }}>
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

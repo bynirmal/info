@@ -1,42 +1,32 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { useRef, useState } from "react";
-import { ArrowUpRight } from "lucide-react";
+import { useRef } from "react";
 
 const PROJECTS = [
   {
-    num: "01",
-    title: "SPIDERVERSE MCU",
+    title: "SpiderVerse MCU",
+    year: "2025",
     description:
-      "A cinematic interactive web experience inspired by the Spider-Verse and MCU universe. Featuring atmospheric rain effects, glassmorphism UI, WebGL shaders and cinematic transitions.",
-    tags: ["Next.js", "WebGL", "Tailwind CSS", "Framer Motion", "MD3"],
+      "A cinematic interactive web experience inspired by the Spider-Verse and MCU universe. Atmospheric rain effects, glassmorphism UI, WebGL shaders, and cinematic transitions.",
+    tags: ["Next.js", "WebGL", "Framer Motion"],
     link: "https://archivos-bynirmal.vercel.app/",
     github: "https://github.com/bynirmal/ARCHIVE_OS---Multiverse-Archive",
   },
   {
-    num: "02",
-    title: "BALA AKSHARAM",
+    title: "Bala Aksharam",
+    year: "2025",
     description:
-      "An educational interactive concept designed to make learning engaging and fun for children. Focused on creative education through interactive digital experiences.",
-    tags: ["Web Design", "Education", "Interactive UI"],
+      "An interactive educational concept designed to make learning engaging and creative for children, focused on interactive digital experiences.",
+    tags: ["Web Design", "Education", "Interactive"],
     link: "https://bynirmal.github.io/bala-aksharam/",
-    github: "#",
+    github: null,
   },
   {
-    num: "03",
-    title: "MEDISPHERE",
+    title: "Personal Portfolio",
+    year: "2025",
     description:
-      "A healthcare-focused digital solution designed around prescription and medical information management. Streamlining healthcare data with modern technology.",
-    tags: ["Healthcare", "Full Stack", "UI/UX"],
-    link: "#",
-    github: "#",
-  },
-  {
-    num: "04",
-    title: "PERSONAL PORTFOLIO",
-    description:
-      "A modern personal portfolio focused on development, design and interactive experiences. Showcasing work with cinematic motion design and premium aesthetics.",
+      "A modern personal portfolio focused on development, design, and interactive experiences. Showcasing work with cinematic motion design and premium aesthetics.",
     tags: ["Next.js", "Framer Motion", "Tailwind CSS"],
     link: "https://bynirmal.github.io/info/",
     github: "https://github.com/bynirmal/info",
@@ -46,131 +36,82 @@ const PROJECTS = [
 export default function Projects() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
-    <section id="projects" ref={ref} className="relative py-24 md:py-40 border-t border-[#1a1a1a]">
-      <div className="max-w-[1400px] mx-auto px-6 md:px-12">
-        {/* Heading */}
+    <section
+      id="projects"
+      ref={ref}
+      className="py-24 md:py-40 bg-[#F0EDE6]"
+    >
+      <div className="max-w-7xl mx-auto px-6 md:px-12">
         <motion.div
-          className="mb-16 md:mb-24"
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.5 }}
         >
-          <h2
-            className="text-6xl md:text-8xl lg:text-[10rem] font-black uppercase tracking-tighter text-white"
-            style={{ fontStretch: "condensed" }}
-          >
-            SELECTED
-            <br />
-            <span className="text-[#c8ff00]" style={{ textShadow: "0 0 30px #c8ff0022" }}>
-              WORK
-            </span>
+          <h2 className="font-[family-name:var(--font-space-grotesk)] text-[clamp(2rem,5vw,3.5rem)] font-bold tracking-[-0.03em] text-[#1A1A1A] mb-3">
+            Projects
           </h2>
-          <div className="h-[2px] w-24 bg-[#c8ff00] mt-4" />
+          <div className="w-8 h-[2px] bg-[#B54747] mb-14 md:mb-20" />
         </motion.div>
 
-        {/* Projects list */}
         <div className="flex flex-col">
           {PROJECTS.map((project, i) => (
-            <motion.div
-              key={project.num}
-              className="group border-t border-[#1a1a1a] py-8 md:py-12"
-              initial={{ opacity: 0, y: 40 }}
+            <motion.article
+              key={project.title}
+              className="border-t border-[#E5E0D8] py-8 md:py-10"
+              initial={{ opacity: 0, y: 15 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.1 + i * 0.1, duration: 0.6 }}
-              onMouseEnter={() => setHoveredIndex(i)}
-              onMouseLeave={() => setHoveredIndex(null)}
+              transition={{ delay: 0.1 + i * 0.08, duration: 0.5 }}
             >
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-start">
-                {/* Number */}
-                <div className="md:col-span-1">
-                  <span
-                    className={`text-4xl md:text-5xl font-black transition-colors duration-300 ${
-                      hoveredIndex === i ? "text-[#c8ff00]" : "text-[#222]"
-                    }`}
-                    style={{ fontStretch: "condensed" }}
-                  >
-                    {project.num}
-                  </span>
-                </div>
-
-                {/* Title + Description */}
-                <div className="md:col-span-6">
-                  <h3
-                    className={`text-3xl md:text-4xl lg:text-5xl font-black uppercase tracking-tighter mb-4 transition-all duration-300 ${
-                      hoveredIndex === i
-                        ? "text-white translate-x-2"
-                        : "text-[#ccc]"
-                    }`}
-                    style={{ fontStretch: "condensed" }}
-                  >
-                    {project.title}
-                  </h3>
-                  <p className="text-sm md:text-base text-[#666] leading-relaxed max-w-xl">
-                    {project.description}
-                  </p>
-                </div>
-
-                {/* Tags + Link */}
-                <div className="md:col-span-5 flex flex-col gap-4 items-start md:items-end">
-                  <div className="flex flex-wrap gap-2">
-                    {project.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="text-[10px] tracking-[0.15em] uppercase px-3 py-1 border border-[#222] text-[#666]"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="flex gap-4 mt-2">
-                    {project.github && project.github !== "#" && (
-                      <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="group/btn inline-flex items-center gap-1.5 text-xs tracking-[0.2em] uppercase text-[#888] hover:text-[#c8ff00] transition-colors duration-300"
-                      >
-                        GitHub
-                        <ArrowUpRight
-                          size={12}
-                          className="transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5"
-                        />
-                      </a>
-                    )}
-                    {project.link && project.link !== "#" && (
-                      <a
-                        href={project.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="group/btn inline-flex items-center gap-1.5 text-xs tracking-[0.2em] uppercase text-[#888] hover:text-[#c8ff00] transition-colors duration-300"
-                      >
-                        View Project
-                        <ArrowUpRight
-                          size={12}
-                          className="transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5"
-                        />
-                      </a>
-                    )}
-                  </div>
+              {/* Header row */}
+              <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 mb-4">
+                <h3 className="font-[family-name:var(--font-space-grotesk)] text-xl md:text-2xl font-bold tracking-[-0.02em] text-[#1A1A1A]">
+                  {project.title}
+                </h3>
+                <div className="flex items-center gap-3 flex-wrap">
+                  {project.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="text-[0.6rem] tracking-[0.1em] uppercase text-[#7A7A7A]"
+                    >
+                      {tag}
+                    </span>
+                  ))}
                 </div>
               </div>
 
-              {/* Hover reveal bar */}
-              <motion.div
-                className="h-[1px] bg-[#c8ff00] mt-6"
-                initial={{ width: "0%" }}
-                animate={{
-                  width: hoveredIndex === i ? "100%" : "0%",
-                }}
-                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              />
-            </motion.div>
+              {/* Description */}
+              <p className="text-[0.875rem] text-[#7A7A7A] leading-relaxed max-w-2xl mb-4">
+                {project.description}
+              </p>
+
+              {/* Links */}
+              <div className="flex items-center gap-5">
+                {project.link && (
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[0.7rem] tracking-[0.1em] uppercase text-[#B54747] font-medium hover:underline underline-offset-4 transition-all duration-200"
+                  >
+                    Live
+                  </a>
+                )}
+                {project.github && (
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[0.7rem] tracking-[0.1em] uppercase text-[#7A7A7A] hover:text-[#1A1A1A] transition-colors duration-200"
+                  >
+                    Source
+                  </a>
+                )}
+              </div>
+            </motion.article>
           ))}
-          <div className="border-t border-[#1a1a1a]" />
+          <div className="border-t border-[#E5E0D8]" />
         </div>
       </div>
     </section>
