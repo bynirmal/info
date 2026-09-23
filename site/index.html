@@ -230,6 +230,9 @@
   .form-status a{color:var(--acc2)}
   .form-status.ok{color:#3fd4a0}
   .form-status.err{color:#ff758f}
+  .form-alt{font-size:12px;color:var(--tx3);text-align:center;margin-top:4px}
+  .form-alt a{color:var(--acc2);text-decoration:none;font-weight:600}
+  .form-alt a:hover{text-decoration:underline}
 
   /* ---------- learning ---------- */
   .learning{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px}
@@ -529,11 +532,10 @@
           conversation about a project idea. Drop a message below and it lands
           straight in my inbox — I reply quickly and I come prepared.
         </p>
-        <form id="contactForm" class="contact-form" action="https://formsubmit.co/ajax/nirmalkumar85230@gmail.com" method="POST">
-          <input type="hidden" name="_subject" value="New message from your portfolio">
-          <input type="hidden" name="_template" value="table">
-          <input type="hidden" name="_captcha" value="false">
-          <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+        <form id="contactForm" class="contact-form" action="https://api.web3forms.com/submit" method="POST">
+          <input type="hidden" name="subject" value="New message from your portfolio">
+          <input type="hidden" name="from_name" value="Portfolio Contact">
+          <input type="checkbox" name="botcheck" style="display:none" tabindex="-1">
           <div class="form-row">
             <input type="text" name="name" placeholder="Your name" required>
             <input type="email" name="email" placeholder="Your email" required>
@@ -541,6 +543,7 @@
           <textarea name="message" placeholder="Your message…" required></textarea>
           <button class="btn primary send" type="submit">Send message ✈️</button>
           <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
+          <p class="form-alt">Prefer email? <a href="mailto:nirmalkumar85230@gmail.com">Write to me directly ↗</a></p>
         </form>
       </div>
       <div class="contact-list">
@@ -594,25 +597,31 @@
   const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.12});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-  // contact form → FormSubmit AJAX (delivers straight to Gmail)
+  // contact form → Web3Forms (delivers straight to Gmail; no activation needed)
+  const W3F_ACCESS_KEY='PASTE_YOUR_WEB3FORMS_ACCESS_KEY_HERE';
   const cform=document.getElementById('contactForm');
   if(cform){
     const cstatus=document.getElementById('formStatus'),sendBtn=cform.querySelector('.send');
     cform.addEventListener('submit',async e=>{
       e.preventDefault();
+      if(W3F_ACCESS_KEY.startsWith('PASTE_')){
+        cstatus.className='form-status err';
+        cstatus.innerHTML='📧 Direct message delivery is being configured — meanwhile please <a href="mailto:nirmalkumar85230@gmail.com">email me directly</a> and I\'ll reply fast.';
+        return;
+      }
       sendBtn.disabled=true;const orig=sendBtn.textContent;sendBtn.textContent='Sending…';
       cstatus.className='form-status';cstatus.textContent='';
       try{
+        const payload=Object.fromEntries(new FormData(cform));
+        payload.access_key=W3F_ACCESS_KEY;
         const res=await fetch(cform.action,{
           method:'POST',
           headers:{'Content-Type':'application/json','Accept':'application/json'},
-          body:JSON.stringify(Object.fromEntries(new FormData(cform)))
+          body:JSON.stringify(payload)
         });
         const text=await res.text();let out={};
-        try{out=JSON.parse(text);}catch(e){
-          throw new Error(/activate/i.test(text)?'Form is activating — try again in a minute after confirming the email.':'Unexpected response from form service');
-        }
-        if(res.ok&&String(out.success)==='true'){
+        try{out=JSON.parse(text);}catch(e){throw new Error('Unexpected response from form service');}
+        if(res.ok&&out.success===true){
           cform.reset();cstatus.className='form-status ok';
           cstatus.textContent="✅ Message sent — it's on its way to my inbox. I'll get back to you soon!";
         }else{
